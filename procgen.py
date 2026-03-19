@@ -60,12 +60,15 @@ def tunnel_between(
 def generate_dungeon(map_width, map_height) -> GameMap:
     dungeon = GameMap(map_width, map_height)
 
+    # Generate 2 rooms on map
     room_1 = RectangularRoom(x=20, y=15, width=10, height=15)
     room_2 = RectangularRoom(x=35, y=15, width=10, height=15)
 
+    # Fill rooms up with walkable tiles
     dungeon.tiles[room_1.inner] = tile_types.floor
     dungeon.tiles[room_2.inner] = tile_types.floor
 
+    # Generate tunnel between 2 rooms
     for x, y in tunnel_between(room_2.center, room_1.center):
         dungeon.tiles[x, y] = tile_types.floor
 
