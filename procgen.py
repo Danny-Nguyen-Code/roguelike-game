@@ -4,6 +4,7 @@ import tcod
 
 from typing import Tuple, Iterator
 from game_map import GameMap
+from __future__ import annotations
 
 
 class RectangularRoom:
@@ -30,6 +31,16 @@ class RectangularRoom:
         """Return inner area of this room as a 2D array index"""
         # Add + 1 to self.x1 and self.x2 to account for a wall separating rooms
         return slice(self.x1 + 1, self.x2), slice(self.y1 + 1, self.y2)
+
+    def intersects(self, other: RectangularRoom) -> bool:
+        """"Return True if this room overlaps with another RectangularRoom"""
+        return {
+            # pretty much if the area between x-y coordinates overlap return True
+            other.x2 >= self.x1
+            and self.x2 >= other.x1
+            and other.y2 >= self.y1
+            and self.y2 >= other.y1
+        }
 
 def tunnel_between(
     start: Tuple[int, int],end: Tuple[int, int]
