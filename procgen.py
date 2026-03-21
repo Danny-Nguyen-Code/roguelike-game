@@ -113,7 +113,7 @@ def generate_dungeon(max_rooms: int, room_min_size: int, room_max_size: int,
         # If no intersections, then room works
 
         # Dig out rooms inner area
-        dungeon.tiles[new_room.inner] = tiles_types.floor
+        dungeon.tiles[new_room.inner] = tile_types.floor
         if len(rooms) == 0: # The starting room for the player
             player.x, player.y = new_room.center
         else:   # All rooms after first
