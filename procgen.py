@@ -38,13 +38,13 @@ class RectangularRoom:
 
     def intersects(self, other: RectangularRoom) -> bool:
         """"Return True if this room overlaps with another RectangularRoom"""
-        return {
+        return (
             # pretty much if the area between x-y coordinates overlap return True
-            other.x2 >= self.x1
+            self.x1 <= other.x2
             and self.x2 >= other.x1
-            and other.y2 >= self.y1
+            and self.y1 <= other.y2
             and self.y2 >= other.y1
-        }
+        )
 
 def tunnel_between(
     start: Tuple[int, int],end: Tuple[int, int]
@@ -72,22 +72,6 @@ def tunnel_between(
         for x, y in tcod.los.bresenham((corner_x, corner_y), (x2, y2)).tolist():
             yield x, y
 
-# def generate_dungeon(map_width, map_height) -> GameMap:
-#     dungeon = GameMap(map_width, map_height)
-
-#     # Generate 2 rooms on map
-#     room_1 = RectangularRoom(x=20, y=15, width=10, height=15)
-#     room_2 = RectangularRoom(x=35, y=15, width=10, height=15)
-
-#     # Fill rooms up with walkable tiles
-#     dungeon.tiles[room_1.inner] = tile_types.floor
-#     dungeon.tiles[room_2.inner] = tile_types.floor
-
-#     # Generate tunnel between 2 rooms
-#     for x, y in tunnel_between(room_2.center, room_1.center):
-#         dungeon.tiles[x, y] = tile_types.floor
-
-#     return dungeon
 
 def generate_dungeon(max_rooms: int, room_min_size: int, room_max_size: int,
     map_width: int, map_height: int, player: Entity,
@@ -114,6 +98,7 @@ def generate_dungeon(max_rooms: int, room_min_size: int, room_max_size: int,
 
         # Dig out rooms inner area
         dungeon.tiles[new_room.inner] = tile_types.floor
+
         if len(rooms) == 0: # The starting room for the player
             player.x, player.y = new_room.center
         else:   # All rooms after first
