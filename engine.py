@@ -31,7 +31,7 @@ class Engine:
         """Recompute visible area based on player's POV."""
         self.game_map.visible[:] = compute_fov(
             self.game_map.tiles["transparent"],
-            (self.player.x,, self.player.y),
+            (self.player.x, self.player.y),
             radius=8,
         )
         # If a tile is "visible" it should be added to "explored"
@@ -44,7 +44,7 @@ class Engine:
         for entity in self.entities:
             # Only print entities in FOV
             if self.game_map.visible[entity.x, entity.y]:
-                console.pring(entity.x, entity.y, entity.char, fg=entity.color)
+                console.print(entity.x, entity.y, entity.char, fg=entity.color)
 
         context.present(console)
 
