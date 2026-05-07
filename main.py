@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import copy
+
 import tcod
 
 from input_handlers import EventHandler
@@ -27,7 +29,7 @@ def main() -> None:
 
     # player = Entity(int(screen_width / 2), int(screen_height / 2), "@", (255, 255, 255))
     player = copy.deepcopy(entity_factories.player)
-    
+
     # Generate dungeon
     game_map = generate_dungeon(
         max_rooms=max_rooms,
