@@ -2,7 +2,7 @@
 import tcod
 
 from input_handlers import EventHandler
-from entity import Entity
+import entity_factories
 from engine import Engine
 from procgen import generate_dungeon
 
@@ -25,7 +25,8 @@ def main() -> None:
     # Receive events and process them
     event_handler = EventHandler()
 
-    player = Entity(int(screen_width / 2), int(screen_height / 2), "@", (255, 255, 255))
+    # player = Entity(int(screen_width / 2), int(screen_height / 2), "@", (255, 255, 255))
+    player = copy.deepcopy(entity_factories.player)
     
     # Generate dungeon
     game_map = generate_dungeon(
